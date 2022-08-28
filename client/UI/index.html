@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/bootswatch/bootstrap.min .css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="../styles/main.css">
+
+    <title>Todo App</title>
+</head>
+<body>
+    <header>
+        <h1>Todo List</h1>
+        <nav>
+            <button class="btn btn-outline-danger" onclick="openAddTodo()">
+                Add Todo
+            </button>
+        </nav>
+    </header>
+    <div id="addTodo" class="card">
+        <div class="card-body">
+            <h3 class="card-title">
+                create Todo
+            </h3>
+            
+            <button class="close" onclick="closeAddTodo()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <form>
+                <input class="form-control" type="text" name="todoName" id="todoName">
+                <input class="form-control" type="text" name="description" id="description">
+                <button class="btn btn-outline-success" id="add">Add</button>
+            </form>
+        </div>
+    </div>
+    <script src="../index.js"></script>
+</body>
+</html>
