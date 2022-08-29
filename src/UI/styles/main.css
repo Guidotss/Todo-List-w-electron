@@ -15,6 +15,7 @@ header button{
     cursor: pointer;
 }
 
+
 #addTodo{
     width: 60%;
     left: 25%;
@@ -43,4 +44,12 @@ form input{
 form button{
     width: 300px !important;
     border-radius: 5px;
+}
+#editTodo{
+    width: 60%;
+    left: 25%;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+    display: none;
 }

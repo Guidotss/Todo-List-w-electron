@@ -45,6 +45,21 @@ class Task {
             console.log(err);
         }
     }
+
+    async editTask(id,task){
+        try{
+            const task = await this.collection.updateOne({taskId:id},{
+                $set:{
+                    taskName:task.taskName,
+                    description:task.description
+                }
+            }); 
+    
+            return task 
+        }catch(err){
+            console.log(err);
+        }
+    }
 }
 
 

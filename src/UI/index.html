@@ -36,6 +36,23 @@
         </div>
     </div>
 
+    <div id="editTodo" class="card">
+        <div class="card-body">
+            <h3 class="card-title">
+                Edit Todo
+            </h3>
+            
+            <button class="close" onclick="closeEditTodo()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <form id="todoEditForm">
+                <input class="form-control" type="text" name="todoName" id="editTaskName">
+                <input class="form-control" type="text" name="description" id="editTaskDescription">
+                <button class="btn btn-outline-warning" id="edit">Edit</button>
+            </form>
+        </div>
+    </div>
+
     <section>
         <div id="todos"></div>
     </section>
