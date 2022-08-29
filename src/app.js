@@ -11,14 +11,39 @@ class Task {
     }
 
     async getAll(){
-        const models = await this.collection.find({});
-        const tasks = models.map(model => {
-            return {
-                taskName: model.taskName,
-                description: model.description
-            }
-        })
-        return tasks
+        try{
+            const models = await this.collection.find({});
+            const tasks = models.map(model => {
+                return {
+                    taskId:model.taskId,
+                    taskName: model.taskName,
+                    description: model.description
+                }
+            }); 
+
+            return tasks; 
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async createNewTask(obj){
+        try{
+            
+            const newTask = this.collection.create(obj); 
+            return newTask;
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async deleteTask(id){
+        try{
+            const task = await this.collection.deleteOne({taskId:id});
+            return task;
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 
