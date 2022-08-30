@@ -47,7 +47,7 @@ const renderAllTodos = (tasks) =>{
     tasks.forEach(task =>{
         const {taskName,description,taskId} = task;
         return(
-            todos.innerHTML+=`<div class="card">
+            todos.innerHTML+=`<div class="card task">
                                     <div class="card-body">
                                         <h5 id="title" class="card-title">${taskName}</h5>
                                         <p id="description" class="card-text">${description}</p>
@@ -62,7 +62,7 @@ const renderAllTodos = (tasks) =>{
 const renderNewTask = (task) =>{
     const {taskName,description,taskId} =  task; 
     return(
-        todos.innerHTML+=`<div class="card">
+        todos.innerHTML+=`<div class="card task">
                                 <div class="card-body">
                                     <h5 id="title" class="card-title">${taskName}</h5>
                                     <p id="description" class="card-text">${description}</p>
