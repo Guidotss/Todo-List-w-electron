@@ -49,12 +49,10 @@ const renderAllTodos = (tasks) =>{
         return(
             todos.innerHTML+=`<div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">${taskName}</h5>
-                                        <p class="card-text">${description}</p>
+                                        <h5 id="title" class="card-title">${taskName}</h5>
+                                        <p id="description" class="card-text">${description}</p>
                                         <button class="btn btn-danger" id="delete" onClick="deleteTask(${taskId})">Delete</button>
-                                        <button class="btn btn-primary" onClick="editTask(${taskId})">Edit</button>
-                                        <button class="btn btn-success" onclick="completeTodo()">Complete</button>
-                                        <button class="btn btn-warning" onclick="incompleteTodo()">Incomplete</button>                                        
+                                        <button class="btn btn-primary" onClick="editTask(${taskId})">Edit</button>                                    
                                     </div>
                                 </div>`
         )
@@ -66,12 +64,10 @@ const renderNewTask = (task) =>{
     return(
         todos.innerHTML+=`<div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">${taskName}</h5>
-                                    <p class="card-text">${description}</p>
+                                    <h5 id="title" class="card-title">${taskName}</h5>
+                                    <p id="description" class="card-text">${description}</p>
                                     <button class="btn btn-danger" id="delete" onClick="deleteTask(${taskId})">Delete</button>
-                                    <button class="btn btn-primary" onClick="editTask(${taskId})">Edit</button>
-                                    <button class="btn btn-success" onclick="completeTodo()">Complete</button>
-                                    <button class="btn btn-warning" onclick="incompleteTodo()">Incomplete</button>                                        
+                                    <button class="btn btn-primary" onClick="editTask(${taskId})">Edit</button>                                   
                                 </div>
                             </div>`
     )
@@ -99,46 +95,42 @@ const deleteTask = async(id) =>{
         await task.deleteTask(id);
         const tasks = await task.getAll();
         todos.innerHTML = "";
-        const {taskName,description,taskId} = tasks;
-        tasks.forEach(task =>{
-            const {taskName,description,taskId} = task;
-            return(
-                todos.innerHTML+=`<div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${taskName}</h5>
-                                            <p class="card-text">${description}</p>
-                                            <button class="btn btn-danger" id="delete" onClick="deleteTask(${taskId})">Delete</button>
-                                            <button class="btn btn-primary" onClick="editTask(${taskId})">Edit</button>
-                                            <button class="btn btn-success" onclick="completeTodo()">Complete</button>
-                                            <button class="btn btn-warning" onclick="incompleteTodo()">Incomplete</button>                                        
-                                        </div>
-                                    </div>`
-            )
-        })
+        renderAllTodos(tasks);
     }else{
         return;
     }
 }
 
 const editTask = async(id) =>{
+    localStorage.setItem("id",id);
+
     editTodoDiv.classList.add("animate__animated", "animate__bounceInDown");
-    
-    setTimeout(() => {
+    setTimeout(() =>{
         editTodoDiv.style.display = "block";
-    }, 300);
-
-    editTodoDiv.classList.remove("animate__bounceOutUp"); 
-
-    editTodoForm.addEventListener("submit", async(e) => {
-        e.preventDefault();
-        const editTask = {
-            taskId: id,
-            taskName: inputEditTaskName.value,
-            description: inputEditDescription.value
-        }
-        await task.editTask(editTask);
-        editTodoForm.reset();
-        editTodoForm.focus();
-        closeEditTodo();
-    })
+        editTodoDiv.classList.remove("animate__bounceOutUp");
+    } ,300)
 }
+
+editTodoForm.addEventListener("submit", async(e) => {
+
+    e.preventDefault(); 
+
+    const id = localStorage.getItem("id");
+    const getTaskById = await task.getTaskById(id); 
+
+    const newTask = {
+        taskId: id,
+        taskName: inputEditTaskName.value,
+        description: inputEditDescription.value
+    }
+
+    await task.editTask(id,newTask);
+    editTodoForm.reset();
+    editTodoForm.focus()
+    closeEditTodo();
+
+    const tasks = await task.getAll();
+    todos.innerHTML = "";
+
+    renderAllTodos(tasks);
+})

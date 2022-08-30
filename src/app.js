@@ -21,12 +21,25 @@ class Task {
                 }
             }); 
 
-            return tasks; 
+            return tasks;
 
         }catch(err){
             console.log(err);
         }
     }
+
+    async getTaskById(id){
+        try{
+            const task = await this.collection.findOne({taskId:id});
+            return{
+                taskName:task.taskName,
+                description:task.description
+            };
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     async createNewTask(obj){
         try{
             
@@ -48,14 +61,14 @@ class Task {
 
     async editTask(id,task){
         try{
-            const task = await this.collection.updateOne({taskId:id},{
+            const taskEdited = await this.collection.findOneAndUpdate({taskId:id},{
                 $set:{
                     taskName:task.taskName,
                     description:task.description
                 }
             }); 
     
-            return task 
+            return taskEdited;
         }catch(err){
             console.log(err);
         }
